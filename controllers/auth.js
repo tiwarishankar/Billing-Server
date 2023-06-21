@@ -17,9 +17,7 @@ export const register = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ message: USER_EXIST });
     }
-    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-    // Create new user
     const user = new User({ email, password: hashedPassword });
     await user.save();
     res.status(201).json({ message: USER_REGISTER_MSG });
@@ -36,7 +34,6 @@ export const login = async (req, res) => {
     if (!user) {
       return res.status(401).json({ message: INVALID_USERNAME_PASS_MSG });
     }
-    // Compare passwords
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(401).json({ message: INVALID_USERNAME_PASS_MSG });

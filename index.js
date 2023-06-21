@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import authRoute from "./routes/auth.js";
 import productItemsRoute from "./routes/productItems.js";
 import userProducts from "./routes/userProducts.js";
+import ordersPlaced from "./routes/orderPlaced.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
@@ -31,8 +32,9 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use("/api/auth", authRoute); // register and login
-app.use("/api/product-items", productItemsRoute); // for fetching all items
-app.use("/api/user-products", userProducts);
+app.use("/api/product-items", productItemsRoute); // apis for CRUD product and services
+app.use("/api/user-products", userProducts); // apis to add product/services to user cart
+app.use("/api", ordersPlaced); // apis to confirm order and to get all order for admin till now
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;

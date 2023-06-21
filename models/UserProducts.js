@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-///this is Room Schema
 const UserProducts = new mongoose.Schema({
   userId: {
     type: String,

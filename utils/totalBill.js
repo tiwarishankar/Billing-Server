@@ -1,44 +1,37 @@
+import {
+  AMOUNT_1000,
+  AMOUNT_5000,
+  AMOUNT_8000,
+  PA_TAX,
+  PB_TAX,
+  PC_TAX,
+  SA_TAX,
+  SB_TAX,
+  SC_TAX,
+} from "./constants.js";
+
 export const calculateTax = (product_price, product_type) => {
   let total_tax = 0;
   // calculate total tax as service
   if (product_type === "service") {
-    if (product_price > 1000 && product_price <= 8000) {
-      const tax = product_price * 0.1;
+    if (product_price > AMOUNT_1000 && product_price <= AMOUNT_8000) {
+      const tax = product_price * SA_TAX;
       total_tax += tax;
-    } else if (product_price > 8000) {
-      const tax = product_price * 0.15;
+    } else if (product_price > AMOUNT_8000) {
+      const tax = product_price * SB_TAX;
       total_tax += tax;
     }
-    total_tax += 100; // flat tax will be apply to all servie
+    total_tax += SC_TAX; // flat tax will be apply to all servie
   } else {
     // calculate product tax
-    if (product_price > 1000 && product_price <= 5000) {
-      const tax = product_price * 0.12;
+    if (product_price > AMOUNT_1000 && product_price <= AMOUNT_5000) {
+      const tax = product_price * PA_TAX;
       total_tax += tax;
-    } else if (product_price > 5000) {
-      const tax = product_price * 0.18;
+    } else if (product_price > AMOUNT_5000) {
+      const tax = product_price * PB_TAX;
       total_tax += tax;
     }
-    total_tax += 200; // flat tax will be apply to all product
+    total_tax += PC_TAX; // flat tax will be apply to all product
   }
   return total_tax;
 };
-
-// export const calculateTotalBill = async (userId) => {
-//   const userProduct = await UserProducts.findOne({ userId });
-//   if (!userProduct) {
-//     return { success: false, total_bill: -1 };
-//   }
-//   let allProducts = userProduct.userProducts;
-//   let total_bill = 0;
-//   for (let i = 0; i < allProducts.length; i++) {
-//     const product_Detail = await ProductItems.findById({
-//       _id: allProducts[i],
-//     });
-
-//     const product_price = product_Detail.price;
-//     const total_tax = calculateTax(product_price, product_Detail.product);
-//     total_bill += product_price + total_tax;
-//   }
-//   return { success: true, total_bill: total_bill };
-// };
