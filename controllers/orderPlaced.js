@@ -26,10 +26,10 @@ export const confirmOrder = async (req, res) => {
     userProducts.userProducts = [];
     await userProducts.save();
 
-    res.json({ message: CONFIRM_ORDER_MSG });
+    return res.json({ message: CONFIRM_ORDER_MSG });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: ERROR_500 });
+    return res.status(500).json({ message: ERROR_500 });
   }
 };
 
@@ -37,9 +37,9 @@ export const getAllOrder = async (req, res) => {
   try {
     const orders = await OrdersPlaced.find();
 
-    res.json({ data: orders, message: "List of all orders" });
+    return res.json({ data: orders, message: "List of all orders" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: ERROR_500 });
+    return res.status(500).json({ message: ERROR_500 });
   }
 };

@@ -20,10 +20,10 @@ export const register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({ email, password: hashedPassword });
     await user.save();
-    res.status(201).json({ message: USER_REGISTER_MSG });
+    return res.status(201).json({ message: USER_REGISTER_MSG });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: ERROR_500 });
+    return res.status(500).json({ message: ERROR_500 });
   }
 };
 export const login = async (req, res) => {
@@ -40,9 +40,9 @@ export const login = async (req, res) => {
     }
     // Generate JWT token
     const token = jwt.sign({ userId: user._id }, "secretkey");
-    res.status(200).json({ message: LOGIN_SUCCESS, token });
+    return res.status(200).json({ message: LOGIN_SUCCESS, token });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: ERROR_500 });
+    return res.status(500).json({ message: ERROR_500 });
   }
 };

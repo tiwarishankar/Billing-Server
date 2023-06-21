@@ -26,9 +26,9 @@ export const addToCart = async (req, res) => {
       });
       await newUserProduct.save();
     }
-    res.status(200).json({ message: PRODUCT_ADDED_MSG });
+    return res.status(200).json({ message: PRODUCT_ADDED_MSG });
   } catch (error) {
-    res.status(500).json({ message: error });
+    return res.status(500).json({ message: error });
   }
 };
 
@@ -52,9 +52,9 @@ export const removeFromCart = async (req, res) => {
     userProduct.userProducts.splice(productIndex, 1);
     await userProduct.save();
 
-    res.status(200).json({ message: PRODUCT_REMOVED_FROM_CART_MSG });
+    return res.status(200).json({ message: PRODUCT_REMOVED_FROM_CART_MSG });
   } catch (error) {
-    res.status(500).json({ message: ERROR_REMOVING_PRODUCT_MSG });
+    return res.status(500).json({ message: ERROR_REMOVING_PRODUCT_MSG });
   }
 };
 
@@ -70,10 +70,10 @@ export const clearUserCart = async (req, res) => {
     userProduct.userProducts = [];
     await userProduct.save();
 
-    res.status(200).json({ message: ALL_PRODUCT_REMOVED_CART });
+    return res.status(200).json({ message: ALL_PRODUCT_REMOVED_CART });
   } catch (error) {
     console.error(ERROR_REMOVING_PRODUCT_MSG, error);
-    res.status(500).json({ message: ERROR_REMOVING_PRODUCT_MSG });
+    return res.status(500).json({ message: ERROR_REMOVING_PRODUCT_MSG });
   }
 };
 
@@ -94,10 +94,10 @@ export const checkoutCart = async (req, res) => {
       total_bill +=
         calculateTax(product_price, product_Detail.product) + product_price;
     }
-    res
+    return res
       .status(200)
       .json({ total_bill: total_bill, message: CHECKOUT_CART_MSG });
   } catch (error) {
-    res.status(500).json({ message: error });
+    return res.status(500).json({ message: error });
   }
 };
